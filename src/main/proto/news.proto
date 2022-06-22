@@ -1,0 +1,47 @@
+//使用proto3语法
+syntax = "proto3";
+//生成多个类
+option java_multiple_files = false;
+//生成java类所在的包
+option java_package = "com.share.news.proto";
+//生成外层类类名
+option java_outer_classname = "NewsProto";
+//.proto包名
+package news;
+
+//定义rpc服务的RouteGrade
+service NewsService{
+  //list 方法名，NewsRequest 传入参数，NewsResponse 返回参数
+  rpc list(NewsRequest) returns (NewsResponse){}
+  rpc hello(StringRequest) returns (StringResponse){}
+
+
+}
+
+message NewsRequest{
+  string date = 1;
+}
+
+message NewsResponse{
+  //repeated 表明是一个数组，每个元素都是News对象
+  repeated News news = 1;
+}
+
+message News{
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+  int64 createTime = 4;
+}
+
+
+message StringRequest{
+  string name = 1;
+}
+
+
+message StringResponse{
+  string result = 1;
+}
+
+

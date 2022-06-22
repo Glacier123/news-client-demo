@@ -1,0 +1,35 @@
+//使用proto3语法
+syntax = "proto3";
+//生成多个类
+option java_multiple_files = false;
+//生成java类所在的包
+option java_package = "com.share.sms.proto";
+//生成外层类类名
+option java_outer_classname = "SmsProto";
+//.proto包名
+package sms;
+
+service SmsService{
+  rpc sendSms(SmsRequest) returns (stream SmsResponse){}
+  rpc createPhone(stream PhoneNumberRequest) returns(PhoneNumberResponse){}
+  rpc createAndSendSms(stream PhoneNumberRequest) returns(stream  PhoneNumberResponse){}
+
+}
+
+message SmsRequest {
+  repeated string phoneNumber = 1;
+  string content = 2;
+}
+
+message SmsResponse {
+  string result = 1;
+}
+
+message PhoneNumberRequest{
+  string phoneNumber = 1;
+}
+
+message PhoneNumberResponse{
+  string result = 1;
+}
+
